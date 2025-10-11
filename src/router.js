@@ -3,9 +3,9 @@ import { useAuthStore } from './stores/authStore'
 
 const routes = [
   { path: '/', name: 'home', component: () => import('./views/HomeView.vue') },
-  { path: '/student', name: 'student', component: () => import('./views/StudentView.vue'), meta: { requiresAuth: true } },
+ /* { path: '/student', name: 'student', component: () => import('./views/StudentView.vue'), meta: { requiresAuth: true } },
   { path: '/investor', name: 'investor', component: () => import('./views/InvestorView.vue'), meta: { requiresAuth: true } },
-  { path: '/browse', name: 'browse', component: () => import('./views/BrowseLoansView.vue') }
+  { path: '/browse', name: 'browse', component: () => import('./views/BrowseLoansView.vue') }*/
 ]
 
 const router = createRouter({

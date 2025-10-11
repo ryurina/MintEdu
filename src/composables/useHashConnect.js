@@ -9,7 +9,7 @@ const topic = ref('')
 export function useHashConnect() {
   const init = async () => {
     const appMetadata = {
-      name: 'Hedera Student Loans',
+      name: 'MintEdu',
       description: 'Decentralized student loan platform',
       icon: 'https://example.com/icon.png',
       url: window.location.origin
