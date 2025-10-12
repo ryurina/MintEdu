@@ -55,4 +55,112 @@
               </div>
               <div class="flex justify-between text-sm">
                 <span class="text-gray-600">Interest Rate:</span>
-                <span class="font-semibold text-green-600">{{ loan.interest_rate
+                <span class="font-semibold text-green-600">{{ loan.interest_rate }}%</span>
+              </div>
+            </div>
+
+            <LoanProgress :loan="loan" />
+
+            <div v-if="selectedLoan?.id === loan.id" class="mt-4 space-y-2">
+              <input
+                v-model="investmentAmount"
+                type="number"
+                placeholder="Amount to invest"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              />
+              <div class="flex gap-2">
+                <button
+                  @click="invest(loan)"
+                  :disabled="loanStore.loading || !walletStore.connected"
+                  class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
+                >
+                  {{ loanStore.loading ? 'Processing...' : 'Confirm Investment' }}
+                </button>
+                <button
+                  @click="selectedLoan = null; investmentAmount = ''"
+                  class="px-4 py-2 border rounded-lg hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <button
+              v-else
+              @click="selectedLoan = loan"
+              :disabled="!walletStore.connected"
+              class="w-full mt-4 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
+            >
+              {{ walletStore.connected ? 'Invest Now' : 'Connect Wallet to Invest' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/authStore'
+import { useLoanStore } from '../stores/loanStore'
+import { useWalletStore } from '../stores/walletStore'
+import WalletConnect from '../components/WalletConnect.vue'
+import LoanProgress from '../components/LoanProgress.vue'
+
+const router = useRouter()
+const authStore = useAuthStore()
+const loanStore = useLoanStore()
+const walletStore = useWalletStore()
+
+const selectedLoan = ref(null)
+const investmentAmount = ref('')
+
+const availableLoans = computed(() => {
+  return loanStore.loans.filter(loan => 
+    loan.status === 'open' || loan.status === 'funding'
+  )
+})
+
+const getStatusClass = (status) => {
+  const classes = {
+    open: 'bg-blue-100 text-blue-800',
+    funding: 'bg-yellow-100 text-yellow-800',
+    funded: 'bg-green-100 text-green-800',
+    repaying: 'bg-purple-100 text-purple-800',
+    completed: 'bg-gray-100 text-gray-800'
+  }
+  return classes[status] || classes.open
+}
+
+const invest = async (loan) => {
+  if (!walletStore.connected) {
+    alert('Please connect your wallet first')
+    return
+  }
+
+  if (!investmentAmount.value || parseFloat(investmentAmount.value) <= 0) {
+    alert('Please enter a valid amount')
+    return
+  }
+
+  const result = await loanStore.investInLoan(
+    loan.id,
+    parseFloat(investmentAmount.value),
+    authStore.user.id,
+    walletStore.accountId
+  )
+
+  if (result.success) {
+    alert(`Successfully invested ${investmentAmount.value}!`)
+    investmentAmount.value = ''
+    selectedLoan.value = null
+  } else {
+    alert(result.error)
+  }
+}
+
+onMounted(() => {
+  loanStore.fetchLoans()
+})
+</script>
