@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { HashConnect, HashConnectConnectionState } from 'hashconnect'
+import { TokenAssociateTransaction, TokenId } from '@hashgraph/sdk'
 import { LedgerId } from '@hashgraph/sdk'
 
 const appMetadata = {
-  name: 'Hedera Student Loans',
+  name: 'MintEdu',
   description: 'Decentralized student loan platform powered by Hedera',
   icons: ['https://hedera.com/favicon.ico'],
   url: window.location.origin

@@ -6,7 +6,6 @@ import {
   AccountId,
   TransferTransaction,
   TokenId,
-  TokenAssociateTransaction,
   AccountInfoQuery
 } from 'npm:@hashgraph/sdk@^2.40.0'
 
@@ -51,24 +50,34 @@ serve(async (req) => {
     const tokenId = TokenId.fromString(loan.token_id)
     const investorAccountId = AccountId.fromString(walletAddress)
 
-    // Check if token is already associated with investor account
+    // Check if token is already associated - THIS IS THE IMPORTANT PART
     let isAssociated = false
     try {
-      const accountInfo = new AccountInfoQuery()
+      console.log('Checking token association for:', walletAddress)
+      const accountInfo = await new AccountInfoQuery()
         .setAccountId(investorAccountId)
         .execute(client)
       
-      const tokenRelationships = (await accountInfo).tokenRelationships
-      isAssociated = tokenRelationships?.get(tokenId) !== undefined
+      // Check if token exists in the token relationships map
+      const tokenRelationships = accountInfo.tokenRelationships
       
-      console.log('Token already associated:', isAssociated)
+      // Iterate through the Map to find our token
+      for (const [tokenKey, relationship] of tokenRelationships) {
+        if (tokenKey.toString() === loan.token_id) {
+          isAssociated = true
+          console.log('Token is associated!')
+          break
+        }
+      }
+      
+      console.log('Association check result:', isAssociated)
     } catch (error) {
-      console.log('Could not check token association:', error.message)
+      console.error('Error checking token association:', error.message)
     }
 
-    // If not associated, we need to return instructions for the user
+    // If not associated, return error with flag
     if (!isAssociated) {
-      console.log('Token not associated - user needs to associate first')
+      console.log('Token not associated - returning error')
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -81,6 +90,7 @@ serve(async (req) => {
     }
 
     // Transfer tokens from treasury to investor
+    console.log('Transferring tokens...')
     const tokenTransferTx = new TransferTransaction()
       .addTokenTransfer(tokenId, operatorId, -amount)
       .addTokenTransfer(tokenId, investorAccountId, amount)
@@ -101,7 +111,8 @@ serve(async (req) => {
     console.error('Investment error:', error)
     
     // Check if error is due to token not associated
-    if (error.message?.includes('TOKEN_NOT_ASSOCIATED_TO_ACCOUNT')) {
+    if (error.message?.includes('TOKEN_NOT_ASSOCIATED_TO_ACCOUNT') || 
+        error.status?._code === 184) {
       return new Response(
         JSON.stringify({ 
           success: false, 
