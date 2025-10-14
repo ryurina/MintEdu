@@ -123,6 +123,38 @@ export const useWalletStore = defineStore('wallet', () => {
     }
   }
 
+  const associateToken = async (tokenId) => {
+    if (!hashconnect.value || !pairingData.value) {
+      throw new Error('Wallet not connected')
+    }
+
+    try {
+      loading.value = true
+      console.log('Associating token:', tokenId)
+
+      // Create token associate transaction via HashConnect
+      const provider = hashconnect.value.getProvider('testnet', pairingData.value.topic, accountId.value)
+      const signer = hashconnect.value.getSigner(provider)
+
+      // Build the transaction
+      const transaction = {
+        tokenIds: [tokenId],
+        accountId: accountId.value
+      }
+
+      // Request signature from user's wallet
+      const result = await signer.associateToken(transaction)
+      
+      console.log('Token associated successfully:', result)
+      return { success: true, result }
+    } catch (error) {
+      console.error('Token association failed:', error)
+      return { success: false, error: error.message }
+    } finally {
+      loading.value = false
+    }
+  }
+
   // Auto-initialize on store creation
   init()
 
@@ -136,6 +168,7 @@ export const useWalletStore = defineStore('wallet', () => {
     accountId,
     init,
     connectWallet,
-    disconnectWallet
+    disconnectWallet,
+    associateToken
   }
 })

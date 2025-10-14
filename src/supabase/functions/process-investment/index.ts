@@ -6,7 +6,8 @@ import {
   AccountId,
   TransferTransaction,
   TokenId,
-  TokenAssociateTransaction
+  TokenAssociateTransaction,
+  AccountInfoQuery
 } from 'npm:@hashgraph/sdk@^2.40.0'
 
 const corsHeaders = {
@@ -50,8 +51,34 @@ serve(async (req) => {
     const tokenId = TokenId.fromString(loan.token_id)
     const investorAccountId = AccountId.fromString(walletAddress)
 
-    // Check if investor has associated the token, if not skip (they need to do it first)
-    // In production, you'd want to handle token association here
+    // Check if token is already associated with investor account
+    let isAssociated = false
+    try {
+      const accountInfo = new AccountInfoQuery()
+        .setAccountId(investorAccountId)
+        .execute(client)
+      
+      const tokenRelationships = (await accountInfo).tokenRelationships
+      isAssociated = tokenRelationships?.get(tokenId) !== undefined
+      
+      console.log('Token already associated:', isAssociated)
+    } catch (error) {
+      console.log('Could not check token association:', error.message)
+    }
+
+    // If not associated, we need to return instructions for the user
+    if (!isAssociated) {
+      console.log('Token not associated - user needs to associate first')
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          needsAssociation: true,
+          tokenId: loan.token_id,
+          message: 'Please associate the token in your wallet first'
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
 
     // Transfer tokens from treasury to investor
     const tokenTransferTx = new TransferTransaction()
@@ -72,6 +99,19 @@ serve(async (req) => {
     )
   } catch (error) {
     console.error('Investment error:', error)
+    
+    // Check if error is due to token not associated
+    if (error.message?.includes('TOKEN_NOT_ASSOCIATED_TO_ACCOUNT')) {
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          needsAssociation: true,
+          message: 'Token not associated with your account. Please associate it in your wallet first.'
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
     return new Response(
       JSON.stringify({ error: error.message, success: false }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
