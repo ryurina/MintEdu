@@ -41,6 +41,7 @@ export const useLoanStore = defineStore('loan', () => {
 
       // Update loan with token_id
       if (tokenData?.tokenId) {
+        console.log("Add token_id to supabase")
         await supabase
           .from('loans')
           .update({ token_id: tokenData.tokenId })

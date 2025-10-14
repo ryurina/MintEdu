@@ -116,51 +116,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Token Association Modal -->
-    <div v-if="showAssociationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-        <h2 class="text-2xl font-bold mb-4">Token Association Required</h2>
-        <div class="mb-6">
-          <p class="text-gray-600 mb-4">
-            Before you can invest, you need to associate the loan token with your wallet. This is a one-time operation.
-          </p>
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <p class="text-sm font-semibold text-blue-900 mb-2">Token ID:</p>
-            <p class="text-sm font-mono text-blue-700">{{ pendingAssociation?.tokenId }}</p>
-          </div>
-          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <p class="text-sm text-yellow-800">
-              <strong>Note:</strong> Token association costs a small amount of HBAR (~0.05 HBAR). Make sure you have enough HBAR in your wallet.
-            </p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <button
-            @click="associateTokenForLoan"
-            :disabled="walletStore.loading"
-            class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
-          >
-            {{ walletStore.loading ? 'Associating...' : 'Associate Token' }}
-          </button>
-          <button
-            @click="showAssociationModal = false; pendingAssociation = null"
-            class="px-6 py-3 border rounded-lg hover:bg-gray-50"
-          >
-            Cancel
-          </button>
-        </div>
-        <div class="mt-4 text-center">
-          <a
-            :href="`https://hashscan.io/testnet/token/${pendingAssociation?.tokenId}`"
-            target="_blank"
-            class="text-sm text-blue-600 hover:text-blue-800"
-          >
-            View Token on HashScan →
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

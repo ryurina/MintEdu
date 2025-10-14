@@ -1,4 +1,5 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import {
   Client,
   PrivateKey,
@@ -21,6 +22,12 @@ serve(async (req) => {
   try {
     const { loanId, amount } = await req.json()
     console.log('Creating token for loan:', loanId, 'amount:', amount)
+
+    // Initialize Supabase client with SERVICE ROLE KEY
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    )
 
     // Initialize Hedera client
     const operatorId = AccountId.fromString(Deno.env.get('HEDERA_OPERATOR_ID')!)
@@ -49,6 +56,20 @@ serve(async (req) => {
     const tokenId = tokenCreateRx.tokenId?.toString()
 
     console.log('Token created successfully:', tokenId)
+
+    // UPDATE THE LOAN IN DATABASE - THIS IS THE FIX
+    const { data: updateData, error: updateError } = await supabaseClient
+      .from('loans')
+      .update({ token_id: tokenId })
+      .eq('id', loanId)
+      .select()
+
+    if (updateError) {
+      console.error('Database update error:', updateError)
+      throw new Error(`Failed to update loan: ${updateError.message}`)
+    }
+
+    console.log('Database updated successfully:', updateData)
 
     return new Response(
       JSON.stringify({ tokenId, success: true }),
