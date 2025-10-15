@@ -50,7 +50,7 @@ serve(async (req) => {
     const tokenId = TokenId.fromString(loan.token_id)
     const investorAccountId = AccountId.fromString(walletAddress)
 
-    // Check if token is already associated - THIS IS THE IMPORTANT PART
+    // Check if token is already associated
     let isAssociated = false
     try {
       console.log('Checking token association for:', walletAddress)
@@ -58,7 +58,6 @@ serve(async (req) => {
         .setAccountId(investorAccountId)
         .execute(client)
       
-      // Check if token exists in the token relationships map
       const tokenRelationships = accountInfo.tokenRelationships
       
       // Iterate through the Map to find our token
@@ -85,7 +84,10 @@ serve(async (req) => {
           tokenId: loan.token_id,
           message: 'Please associate the token in your wallet first'
         }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }, 
+          status: 400 
+        }
       )
     }
 
@@ -119,13 +121,19 @@ serve(async (req) => {
           needsAssociation: true,
           message: 'Token not associated with your account. Please associate it in your wallet first.'
         }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }, 
+          status: 400 
+        }
       )
     }
 
     return new Response(
       JSON.stringify({ error: error.message, success: false }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      { 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }, 
+        status: 400 
+      }
     )
   }
 })

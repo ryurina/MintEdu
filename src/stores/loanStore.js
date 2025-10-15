@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { supabase } from '../composables/useSupabase'
+import { useWalletStore } from './walletStore'
+
 
 export const useLoanStore = defineStore('loan', () => {
   const loans = ref([])
@@ -58,123 +60,87 @@ export const useLoanStore = defineStore('loan', () => {
   }
 
   const investInLoan = async (loanId, amount, investorId, walletAddress) => {
-    loading.value = true
-    try {
-      // Call edge function to process investment
-      const { data, error } = await supabase.functions.invoke('process-investment', {
-        body: { loanId, amount, investorId, walletAddress }
-      })
+  loading.value = true
+  try {
+    // Call edge function to process investment
+    const response = await supabase.functions.invoke('process-investment', {
+      body: { loanId, amount, investorId, walletAddress }
+    })
 
-      console.log('Edge function response:', { data, error })
+    console.log('=== RAW RESPONSE ===')
+    console.log('response.data:', response.data)
+    console.log('response.error:', response.error)
+    console.log('response.response:', response.response)
+    console.log('===================')
 
-      // Check error.context for needsAssociation flag
-      if (error) {
-        console.error('Edge function error:', error)
-        
-        // Try to parse the error context
-        let errorData = null
+    // When Edge Function returns 400, we need to extract the JSON body
+    if (response.error) {
+      console.log('Error detected, extracting response body...')
+      
+      let errorBody = null
+      
+      // The actual response body is in response.response
+      if (response.response) {
         try {
-          if (error.context) {
-            errorData = typeof error.context === 'string' 
-              ? JSON.parse(error.context) 
-              : error.context
-          }
+          // Clone the response to read it (can only read once)
+          const responseClone = response.response.clone()
+          errorBody = await responseClone.json()
+          console.log('✅ Extracted error body:', errorBody)
         } catch (e) {
-          console.error('Failed to parse error context:', e)
+          console.error('Failed to parse response body:', e)
         }
-
-        console.log('Parsed error data:', errorData)
-
-        // Check if token association is needed
-        if (errorData?.needsAssociation) {
-          console.log('Token association required')
-          return { 
-            success: false, 
-            needsAssociation: true, 
-            tokenId: errorData.tokenId,
-            error: errorData.message || 'Token association required'
-          }
-        }
-
-        throw error
       }
 
-      // Check data for needsAssociation (shouldn't happen with 400, but just in case)
-      if (data?.needsAssociation) {
-        console.log('Token association required (from data)')
+      // Check if we found the needsAssociation flag
+      if (errorBody?.needsAssociation) {
+        console.log('✅ ASSOCIATION NEEDED! Returning to show modal...')
         return { 
           success: false, 
           needsAssociation: true, 
-          tokenId: data.tokenId,
-          error: data.message || 'Token association required'
+          tokenId: errorBody.tokenId,
+          error: errorBody.message || 'Token association required'
         }
       }
 
-      // Insert investment record
-      await supabase.from('investments').insert({
-        loan_id: loanId,
-        investor_id: investorId,
-        amount,
-        tokens_received: amount,
-        transaction_id: data.transactionId
-      })
-
-      // Update loan amount_raised
-      const loan = loans.value.find(l => l.id === loanId)
-      if (loan) {
-        const newAmountRaised = (loan.amount_raised || 0) + amount
-        const newStatus = newAmountRaised >= loan.amount ? 'funded' : 'funding'
-        
-        await supabase
-          .from('loans')
-          .update({ 
-            amount_raised: newAmountRaised,
-            status: newStatus
-          })
-          .eq('id', loanId)
-      }
-
-      await fetchLoans()
-      return { success: true }
-    } catch (error) {
-      console.error('Investment error:', error)
-      
-      // Try one more time to parse error for association info
-      let errorData = null
-      try {
-        if (error.context) {
-          errorData = typeof error.context === 'string' 
-            ? JSON.parse(error.context) 
-            : error.context
-        }
-      } catch (e) {
-        // Ignore parse errors
-      }
-
-      if (errorData?.needsAssociation) {
-        return { 
-          success: false, 
-          needsAssociation: true,
-          tokenId: errorData.tokenId,
-          error: errorData.message || 'Token association required'
-        }
-      }
-      
-      // Check for token association error in the error message
-      if (error.message?.includes('TOKEN_NOT_ASSOCIATED') || 
-          error.message?.includes('needsAssociation')) {
-        return { 
-          success: false, 
-          needsAssociation: true,
-          error: 'Please associate the loan token with your wallet first'
-        }
-      }
-      
-      return { success: false, error: error.message }
-    } finally {
-      loading.value = false
+      // If we couldn't extract association info, throw the error
+      console.log('❌ Could not extract association info, throwing error')
+      throw response.error
     }
+
+    // Success case - insert investment record
+    console.log('✅ Investment successful, recording in database...')
+    await supabase.from('investments').insert({
+      loan_id: loanId,
+      investor_id: investorId,
+      amount,
+      tokens_received: amount,
+      transaction_id: response.data.transactionId
+    })
+
+    // Update loan amount_raised
+    const loan = loans.value.find(l => l.id === loanId)
+    if (loan) {
+      const newAmountRaised = (loan.amount_raised || 0) + amount
+      const newStatus = newAmountRaised >= loan.amount ? 'funded' : 'funding'
+      
+      await supabase
+        .from('loans')
+        .update({ 
+          amount_raised: newAmountRaised,
+          status: newStatus
+        })
+        .eq('id', loanId)
+    }
+
+    await fetchLoans()
+    return { success: true }
+  } catch (error) {
+    console.error('Investment error caught:', error)
+    return { success: false, error: error.message || 'Investment failed' }
+  } finally {
+    loading.value = false
   }
+}
 
   return {
     loans,
