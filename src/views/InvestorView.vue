@@ -133,38 +133,177 @@
     </div>
 
     <!-- Token Association Modal -->
+    <!-- Token Association Modal -->
     <div
       v-if="showAssociationModal"
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
     >
-      <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
+      <div class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
         <h2 class="text-2xl font-bold mb-4">Token Association Required</h2>
         <div class="mb-6">
           <p class="text-gray-600 mb-4">
             Before you can invest, you need to associate the loan token with
-            your wallet. This is a one-time operation.
+            your HashPack wallet. This is a one-time operation that costs ~0.05
+            HBAR.
           </p>
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+
+          <!-- Token ID Display -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p class="text-sm font-semibold text-blue-900 mb-2">Token ID:</p>
-            <p class="text-sm font-mono text-blue-700">
-              {{ pendingAssociation?.tokenId }}
-            </p>
+            <div class="flex items-center gap-2">
+              <p class="text-lg font-mono text-blue-700 flex-1">
+                {{ pendingAssociation?.tokenId }}
+              </p>
+              <button
+                @click="copyTokenId"
+                class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+              >
+                Copy
+              </button>
+            </div>
           </div>
-          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+
+          <!-- Video Tutorial -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">📺 Video Tutorial</h3>
+            <div
+              class="aspect-video bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300"
+            >
+              <div class="text-center">
+                <svg
+                  class="w-16 h-16 mx-auto text-gray-400 mb-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <p class="text-gray-500 text-sm">Video tutorial coming soon</p>
+              </div>
+              <!-- Replace with actual video embed when ready -->
+              <!-- <iframe src="YOUR_VIDEO_URL" class="w-full h-full rounded-lg"></iframe> -->
+            </div>
+          </div>
+
+          <!-- Step-by-Step Instructions -->
+          <div class="space-y-3">
+            <h3 class="font-semibold text-gray-900 mb-2">📝 Manual Steps:</h3>
+
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold"
+              >
+                1
+              </div>
+              <div>
+                <p class="font-semibold">Open HashPack Wallet</p>
+                <p class="text-sm text-gray-600">
+                  Open your HashPack browser extension or mobile app
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold"
+              >
+                2
+              </div>
+              <div>
+                <p class="font-semibold">Go to Tokens Tab</p>
+                <p class="text-sm text-gray-600">
+                  Navigate to the "Tokens" section in your wallet
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold"
+              >
+                3
+              </div>
+              <div>
+                <p class="font-semibold">Click "Associate Token"</p>
+                <p class="text-sm text-gray-600">
+                  Look for the "+" or "Associate Token" button
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold"
+              >
+                4
+              </div>
+              <div>
+                <p class="font-semibold">Paste Token ID</p>
+                <p class="text-sm text-gray-600">
+                  Copy the token ID above and paste it in HashPack
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold"
+              >
+                5
+              </div>
+              <div>
+                <p class="font-semibold">Confirm Transaction</p>
+                <p class="text-sm text-gray-600">
+                  Approve the association (~0.05 HBAR fee)
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold"
+              >
+                6
+              </div>
+              <div>
+                <p class="font-semibold">Return Here & Invest</p>
+                <p class="text-sm text-gray-600">
+                  Once associated, come back and click "Try Again" below
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Warning Note -->
+          <div
+            class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6"
+          >
             <p class="text-sm text-yellow-800">
-              <span class="font-semibold">Note:</span> Token association costs a
-              small amount of HBAR (~0.05 HBAR). Make sure you have enough HBAR
-              in your wallet.
+              <span class="font-semibold">⚠️ Note:</span> You only need to
+              associate each token once. After association, all future
+              investments in this loan will work automatically.
             </p>
           </div>
         </div>
+
+        <!-- Action Buttons -->
         <div class="flex gap-3">
           <button
-            @click="associateTokenForLoan"
-            :disabled="walletStore.loading"
-            class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
+            @click="retryInvestment"
+            class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
           >
-            {{ walletStore.loading ? "Associating..." : "Associate Token" }}
+            ✓ I've Associated - Try Again
           </button>
           <button
             @click="
@@ -176,14 +315,25 @@
             Cancel
           </button>
         </div>
-        <div class="mt-4 text-center">
+
+        <!-- External Links -->
+        <div class="mt-4 flex gap-4 justify-center text-sm">
           <a
             :href="`https://hashscan.io/testnet/token/${pendingAssociation?.tokenId}`"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm text-blue-600 hover:text-blue-800"
+            class="text-blue-600 hover:text-blue-800"
           >
-            View Token on HashScan
+            View Token on HashScan →
+          </a>
+
+          <a
+            href="https://www.hashpack.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-600 hover:text-blue-800"
+          >
+            Get HashPack Wallet →
           </a>
         </div>
       </div>
