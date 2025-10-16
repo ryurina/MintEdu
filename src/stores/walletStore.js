@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { HashConnect, HashConnectConnectionState } from 'hashconnect'
-import { LedgerId } from '@hashgraph/sdk'
+import { LedgerId, TransferTransaction, AccountId, Hbar } from '@hashgraph/sdk'
 
 const appMetadata = {
   name: 'Hedera Student Loans',
@@ -30,15 +30,13 @@ export const useWalletStore = defineStore('wallet', () => {
       console.log('Initializing HashConnect...')
       loading.value = true
       
-      // Create the hashconnect instance
       const hc = new HashConnect(
         LedgerId.TESTNET,
         import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
         appMetadata,
-        true // debug mode
+        true
       )
 
-      // Register events
       hc.pairingEvent.on((newPairing) => {
         console.log('Pairing event:', newPairing)
         pairingData.value = newPairing
@@ -65,16 +63,12 @@ export const useWalletStore = defineStore('wallet', () => {
         }
       })
 
-      // Initialize
       await hc.init()
-      
-      // Set the instance AFTER successful initialization
       hashconnect.value = hc
       isInitialized.value = true
       
       console.log('HashConnect initialized successfully')
 
-      // Check for existing pairings
       const savedPairings = hc.pairings
       if (savedPairings && savedPairings.length > 0) {
         console.log('Found existing pairings:', savedPairings)
@@ -95,12 +89,10 @@ export const useWalletStore = defineStore('wallet', () => {
       loading.value = true
       
       if (!hashconnect.value) {
-        console.log('HashConnect not initialized, initializing now...')
         await init()
       }
       
       if (hashconnect.value) {
-        console.log('Opening pairing modal...')
         await hashconnect.value.openPairingModal()
         return { success: true }
       } else {
@@ -123,7 +115,49 @@ export const useWalletStore = defineStore('wallet', () => {
     }
   }
 
-  // Auto-initialize on store creation
+  // Send HBAR payment for investment (HashConnect v3)
+  const sendHbarPayment = async (hbarAmount, treasuryAccount) => {
+    if (!hashconnect.value || !pairingData.value || !accountId.value) {
+      throw new Error('Wallet not connected')
+    }
+
+    try {
+      loading.value = true
+      console.log(`Sending ${hbarAmount} HBAR to ${treasuryAccount}`)
+
+      const signer = hashconnect.value.getSigner(AccountId.fromString(accountId.value))
+      
+      // Build and freeze HBAR transfer transaction
+      const transaction = await new TransferTransaction()
+        .addHbarTransfer(accountId.value, new Hbar(-hbarAmount))
+        .addHbarTransfer(treasuryAccount, new Hbar(hbarAmount))
+        .freezeWithSigner(signer)
+      
+      console.log('Requesting payment signature from wallet...')
+      
+      // Execute transaction with HashConnect signer
+      const response = await transaction.executeWithSigner(signer)
+      
+      console.log('Transaction submitted:', response)
+      
+      // Wait for receipt
+      const receipt = await response.getReceiptWithSigner(signer)
+      
+      console.log('Payment receipt:', receipt)
+      console.log('Payment successful! Transaction ID:', response.transactionId.toString())
+      
+      return { 
+        success: true, 
+        transactionId: response.transactionId.toString() 
+      }
+    } catch (error) {
+      console.error('Payment failed:', error)
+      return { success: false, error: error.message }
+    } finally {
+      loading.value = false
+    }
+  }
+
   init()
 
   return {
@@ -136,6 +170,7 @@ export const useWalletStore = defineStore('wallet', () => {
     accountId,
     init,
     connectWallet,
-    disconnectWallet
+    disconnectWallet,
+    sendHbarPayment
   }
 })
