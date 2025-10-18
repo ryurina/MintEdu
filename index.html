@@ -9,5 +9,40 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <!-- Widget Configuration -->
+     <script>
+        // Wait for everything to be ready
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                window.ChatWidgetConfig = {
+                    webhook: {
+                        url: 'https://n8n-n8n.5zv4v4.easypanel.host/webhook/101276fe-feb3-44ce-864d-da09c35de59d/chat',
+                        route: 'general'
+                    },
+                    branding: {
+                        logo: 'https://mint-edu.vercel.app/vite.svg',
+                        name: 'MintEdu',
+                        welcomeText: 'Hi 👋, how can we help?',
+                        responseTimeText: 'We typically respond right away'
+                    },
+                    style: {
+                        primaryColor: '#10b981',
+                        secondaryColor: '#14b8a6',
+                        position: 'right',
+                        backgroundColor: '#ffffff',
+                        fontColor: '#333333'
+                    }
+                };
+                
+                console.log('Loading chat widget...');
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/gh/juansebsol/n8n-chatbot-template@latest/chat-widget.js';
+                script.async = true;
+                script.onload = () => console.log('✓ Chat widget loaded');
+                script.onerror = (e) => console.error('✗ Failed to load:', e);
+                document.body.appendChild(script);
+            }, 500); // 500ms delay
+        });
+    </script>
   </body>
 </html>
