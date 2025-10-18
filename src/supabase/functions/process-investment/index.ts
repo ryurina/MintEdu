@@ -15,7 +15,7 @@ const corsHeaders = {
 }
 
 // HBAR/USD rate - Update this regularly or fetch from an oracle
-const HBAR_USD_RATE = 0.05 // 1 HBAR = $0.05 USD
+const HBAR_USD_RATE = 0.15 // 1 HBAR = $0.05 USD
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
