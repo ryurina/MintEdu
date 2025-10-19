@@ -8,6 +8,8 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
+**Repository**: [github.com/ryurina/MintEdu](https://github.com/ryurina/MintEdu)
+
 ## 🌟 Features
 
 - **For Students**
@@ -25,28 +27,29 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
   - Diversified investment portfolio
 
 - **Core Platform**
-  - Built on Hedera network (eco-friendly, fast, secure)
-  - End-to-end encryption
-  - Multi-factor authentication
+  - Built on Hedera Token Service (HTS)
+  - HashConnect & HashPack/Blade wallet integration
+  - Multi-factor authentication (2FA)
   - Real-time transaction settlement
   - Comprehensive KYC/AML compliance
   - Identity verification integration
+  - Supabase PostgreSQL database with Edge Functions
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - Node.js 16+ and npm/yarn
-- Vue 3
-- Hedera account with testnet HBAR tokens
-- Modern web browser
+- Git
+- Hedera testnet account ([portal.hedera.com](https://portal.hedera.com/))
+- Modern web browser with wallet support (HashPack or Blade)
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/mintedu/mintedu.git
-cd mintedu
+git clone https://github.com/ryurina/MintEdu.git
+cd MintEdu
 
 # Install dependencies
 npm install
@@ -55,10 +58,9 @@ npm install
 cp .env.example .env.local
 
 # Configure your .env.local
-VITE_HEDERA_NETWORK=testnet
-VITE_HEDERA_ACCOUNT_ID=your_account_id
-VITE_HEDERA_PRIVATE_KEY=your_private_key
-VITE_API_URL=http://localhost:3000
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
 
 # Run development server
 npm run dev
@@ -70,10 +72,12 @@ npm run build
 npm run preview
 ```
 
+The application will run at **http://localhost:5173**
+
 ## 📁 Project Structure
 
 ```
-mintedu/
+MintEdu/
 ├── src/
 │   ├── components/        # Reusable Vue components
 │   ├── stores/           # Pinia state management
@@ -106,48 +110,48 @@ mintedu/
 - **Vue Router** - Client-side routing
 - **Axios** - HTTP client
 
-### Backend (Not included)
-- Node.js with Express
-- MongoDB for database
-- JWT authentication
-- Socket.io for real-time updates
+### Backend & Database
+- **Supabase** - PostgreSQL database
+- **Supabase Auth** - Authentication service
+- **Supabase Edge Functions** - Serverless functions
 
 ### Blockchain
 - **Hedera Hashgraph** - Consensus service
-- **Hedera Smart Contracts** - Smart contract execution
-- **Hedera Token Service** - Token management
+- **Hedera Token Service (HTS)** - Token creation & management
+- **HashConnect** - Wallet connection protocol
+- **HashPack / Blade** - Wallet providers
 
 ## 🔐 Security & Compliance
 
 ### Security Features
-- End-to-end encryption for sensitive data
 - Multi-factor authentication (2FA)
+- Secure password hashing with bcrypt
 - Role-based access control (RBAC)
 - Regular security audits
-- Secure password hashing with bcrypt
-- SQL injection prevention with parameterized queries
-- CSRF protection
+- Secure Supabase configuration
+- Environment variable protection
 
 ### Compliance
 - **KYC/AML** - Know Your Customer & Anti-Money Laundering
 - **GDPR** - General Data Protection Regulation compliant
-- **SOC 2 Type II** - Security & availability audited
-- **PCI DSS** - Payment Card Industry standards
+- Identity verification integration
+- Regular data backups (encrypted)
+- Data anonymization for analytics
 
 ### Data Protection
-- AES-256 encryption at rest
-- TLS 1.3 encryption in transit
-- Regular backups (encrypted)
-- Data anonymization for analytics
+- Supabase Row Level Security (RLS)
+- Encrypted sensitive data
+- Regular backups with encryption
 - 90-day log retention policy
+- Secure password policies
 
 ## 📖 Documentation
 
 Comprehensive documentation available in the `/docs` folder:
 
 - **[USER_GUIDE.md](./docs/USER_GUIDE.md)** - User guide for students and investors
-- **[API_DOCUMENTATION.md](./docs/API_DOCUMENTATION.md)** - REST API reference
-- **[SMART_CONTRACTS.md](./docs/SMART_CONTRACTS.md)** - Smart contract deployment guide
+- **[API_DOCUMENTATION.md](./docs/API_DOCUMENTATION.md)** - REST API & Supabase reference
+- **[HEDERA_INTEGRATION.md](./docs/HEDERA_INTEGRATION.md)** - Hedera HTS & wallet integration
 - **[ARCHITECTURE.md](./docs/ARCHITECTURE.md)** - System architecture overview
 - **[DEPLOYMENT.md](./docs/DEPLOYMENT.md)** - Production deployment guide
 - **[TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)** - Common issues and solutions
@@ -185,23 +189,35 @@ npm run type-check
 ### Environment Variables
 
 ```env
-# Hedera Configuration
-VITE_HEDERA_NETWORK=testnet
-VITE_HEDERA_ACCOUNT_ID=0.0.xxxxx
-VITE_HEDERA_PRIVATE_KEY=xxxxx
+# Supabase Configuration
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_anon_key_here
 
-# API Configuration
-VITE_API_URL=http://localhost:3000
-VITE_API_TIMEOUT=30000
+# WalletConnect Configuration
+VITE_WALLETCONNECT_PROJECT_ID=your_walletconnect_id
 
-# Firebase/Auth Configuration
-VITE_FIREBASE_CONFIG={}
-VITE_AUTH_DOMAIN=auth.mintedu.com
-
-# Feature Flags
+# Optional: Feature Flags
 VITE_ENABLE_TESTNET=true
 VITE_ENABLE_ANALYTICS=true
 ```
+
+### Getting Hedera Testnet Tokens
+
+1. Go to [portal.hedera.com](https://portal.hedera.com/)
+2. Create or sign in to your account
+3. Select **Testnet**
+4. Create account to get testnet HBAR tokens
+5. Use your account ID in the application
+
+### Checking Created Tokens
+
+View tokens you've created on the Hedera testnet:
+
+```
+https://hashscan.io/testnet/token/YOUR_TOKEN_ID
+```
+
+Example: `https://hashscan.io/testnet/token/0.0.12345678`
 
 ## 🎯 Key Pages
 
@@ -221,32 +237,41 @@ VITE_ENABLE_ANALYTICS=true
 ## 💰 How It Works
 
 ### Student Flow
-1. Sign up and verify identity
-2. Create loan application
-3. Provide education details
-4. Wait for verification
-5. Loan listed on platform
-6. Receive funding once fully funded
-7. Make repayments over time
+1. Sign up with email and password (Supabase Auth)
+2. Verify identity with 2FA
+3. Create loan application
+4. Provide education details
+5. Wait for verification
+6. Loan listed on platform
+7. Connect wallet (HashPack/Blade) to receive funds
+8. Make repayments over time
 
 ### Investor Flow
-1. Sign up and pass KYC
-2. Browse available loans
-3. Select loans to fund
-4. Receive earned interest
-5. Track investment performance
-6. Withdraw profits
+1. Sign up and pass KYC (Supabase Auth)
+2. Connect Hedera wallet (HashConnect)
+3. Browse available loans
+4. Select loans to fund
+5. Confirm investment and sign transaction
+6. Receive earned interest
+7. Track investment performance
+8. Withdraw profits
 
-## 📊 Smart Contracts
+## 🔗 Hedera Integration
 
-MintEdu uses Hedera Smart Contracts for:
-- Loan issuance and management
-- Payment processing
-- Interest calculation and distribution
-- Escrow services
-- Dispute resolution
+### Token Management
+- Create custom tokens using Hedera Token Service (HTS)
+- Token transfers via wallet connections
+- Real-time balance updates
 
-See [SMART_CONTRACTS.md](./docs/SMART_CONTRACTS.md) for deployment details.
+### Wallet Connection
+- **HashPack** - Browser extension wallet
+- **Blade** - Alternative Hedera wallet
+- HashConnect protocol for secure connections
+
+### Transaction Processing
+- Sign transactions with connected wallet
+- Real-time transaction status updates
+- View transactions on [HashScan](https://hashscan.io/testnet)
 
 ## 🧪 Testing
 
@@ -271,20 +296,18 @@ npm run test:coverage
 npm run dev
 ```
 
-### Staging
+### Production Build
 ```bash
 npm run build
 npm run preview
 ```
 
-### Production
 See [DEPLOYMENT.md](./docs/DEPLOYMENT.md) for complete production deployment guide.
 
-Quick start:
+Quick start with Vercel/Netlify:
 ```bash
 npm run build
-npm run build:api  # Build backend
-docker compose up  # Start with Docker
+# Deploy the dist/ folder
 ```
 
 ## 🤝 Contributing
@@ -303,27 +326,32 @@ This project is licensed under the MIT License - see [LICENSE](./LICENSE) file f
 
 ## 🔗 Links
 
-- **Website**: [mintedu.com](https://mintedu.com)
-- **Discord**: [Join Community](https://discord.gg/mintedu)
-- **Twitter**: [@MintEdu](https://twitter.com/mintedu)
+- **Repository**: [github.com/ryurina/MintEdu](https://github.com/ryurina/MintEdu)
+- **Hedera Portal**: [portal.hedera.com](https://portal.hedera.com/)
+- **HashScan**: [hashscan.io](https://hashscan.io/testnet)
+- **HashPack Wallet**: [hashpack.app](https://www.hashpack.app/)
+- **Blade Wallet**: [bladewallet.io](https://bladewallet.io/)
 - **Email**: hello@mintedu.com
 
 ## 📧 Support
 
-- **Documentation**: [docs.mintedu.com](https://docs.mintedu.com)
-- **Help Center**: [support.mintedu.com](https://support.mintedu.com)
+- **Documentation**: See `/docs` folder
+- **Issues**: [GitHub Issues](https://github.com/ryurina/MintEdu/issues)
 - **Email**: support@mintedu.com
-- **Discord**: Community support channel
+- **Discussions**: [GitHub Discussions](https://github.com/ryurina/MintEdu/discussions)
 
 ## ⚠️ Disclaimer
 
 MintEdu is a financial platform. Investing and lending involve risk. Past performance does not guarantee future results. Always do your own research before making investment decisions.
 
+This is a testnet application. Do not use real funds.
+
 ## 🙏 Acknowledgments
 
-- Built with Vue 3, Tailwind CSS, and Hedera
+- Built with Vue 3, Tailwind CSS, Vite, and Hedera
+- Powered by Supabase for backend services
 - Inspired by accessible finance principles
-- Thanks to our community and early adopters
+- Thanks to the Hedera community and early adopters
 
 ---
 
