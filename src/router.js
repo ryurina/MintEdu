@@ -6,7 +6,8 @@ const routes = [
   { path: '/student', name: 'student', component: () => import('./views/StudentView.vue'), meta: { requiresAuth: true } },
   { path: '/investor', name: 'investor', component: () => import('./views/InvestorView.vue'), meta: { requiresAuth: true } },
   { path: '/browse', name: 'browse', component: () => import('./views/BrowseLoansView.vue') },
-  { path: '/privacy-policy', name: 'privacy', component: () => import('./views/Privacy.vue')}
+  { path: '/privacy-policy', name: 'privacy', component: () => import('./views/Privacy.vue')},
+  { path: '/terms', name: 'privacy', component: () => import('./views/TermsView.vue')}
 ]
 
 const router = createRouter({
