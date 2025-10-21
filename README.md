@@ -91,6 +91,12 @@ MintEdu/
 │   │   ├── authService.js
 │   │   └── loanService.js
 │   ├── composables/      # Vue composables
+|   ├── supabase/      # supabase edge functions
+|   |   └── functions
+|   |       ├── create-loan-token
+|   |       |     └── index.ts
+│   │       └── process-investment
+|   |       |     └── index.ts
 │   ├── App.vue          # Root component
 │   └── main.js          # Application entry point
 ├── public/              # Static assets
