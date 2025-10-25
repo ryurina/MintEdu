@@ -7,21 +7,14 @@
         <div>
           <div class="flex items-center gap-3 mb-4">
             <div
-              class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center"
+              class=" rounded-lg flex items-center justify-center"
             >
-              <svg
-                class="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              <img
+                src="/logo_mintedu.png"
+                alt="icon"
+                class="w-10 h-10 text-white"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
+
             </div>
             <span class="text-xl font-bold text-gray-900">MintEdu</span>
           </div>
