@@ -136,14 +136,14 @@
           <ul class="space-y-2 text-sm">
             <li>
               <a
-                href="#"
+                href="/privacy-policy"
                 class="text-gray-600 hover:text-emerald-500 transition"
                 >Privacy Policy</a
               >
             </li>
             <li>
               <a
-                href="#"
+                href="/terms"
                 class="text-gray-600 hover:text-emerald-500 transition"
                 >Terms of Service</a
               >

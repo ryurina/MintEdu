@@ -422,7 +422,7 @@
               >
             </p>
             <p class="text-gray-700">
-              Address: San Francisco, CA, United States
+              Address: Itaosy, Antananarivo, Madagascar
             </p>
           </div>
         </section>

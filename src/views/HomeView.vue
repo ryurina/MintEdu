@@ -4,7 +4,7 @@
     <nav class="border-b border-gray-100">
       <div class="container mx-auto px-6 py-4">
         <div class="flex justify-between items-center">
-          <div class="flex items-center gap-3">
+          <a href="/" class="flex items-center gap-3">
             <div
               class=" rounded-lg flex items-center justify-center"
             >
@@ -16,7 +16,7 @@
 
             </div>
             <span class="text-2xl font-bold text-gray-900">MintEdu</span>
-          </div>
+          </a>
           <div class="flex items-center gap-6">
             <router-link
               to="/browse"
