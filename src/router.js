@@ -7,7 +7,9 @@ const routes = [
   { path: '/investor', name: 'investor', component: () => import('./views/InvestorView.vue'), meta: { requiresAuth: true } },
   { path: '/browse', name: 'browse', component: () => import('./views/BrowseLoansView.vue') },
   { path: '/privacy-policy', name: 'privacy', component: () => import('./views/Privacy.vue')},
-  { path: '/terms', name: 'terms', component: () => import('./views/TermsView.vue')}
+  { path: '/terms', name: 'terms', component: () => import('./views/TermsView.vue')},
+  { path: '/blog', name:'blog', component: ()=> import('./views/Blog.vue')},
+  { path: '/blog/:slug', name:'blogPost', component: ()=> import('./views/BlogPostView.vue')}
 ]
 
 const router = createRouter({
