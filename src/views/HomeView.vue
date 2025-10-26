@@ -48,33 +48,54 @@
     <!-- Hero Section -->
     <div class="container mx-auto px-6">
       <div class="pt-24 pb-20 text-center">
-        <div class="inline-block px-4 py-2 bg-emerald-50 rounded-full mb-8">
-          <span class="text-emerald-600 font-medium text-sm"
-            >Powered by Hedera Network</span
-          >
+        <!-- Animated Badge with shimmer effect -->
+        <div
+          class="inline-block px-4 py-2 bg-emerald-50 rounded-full mb-8 animate-fade-in-down relative overflow-hidden"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"
+          ></div>
+          <span class="text-emerald-600 font-medium text-sm relative z-10">
+            Powered by Hedera Network
+          </span>
         </div>
 
+        <!-- Animated Heading with staggered entrance -->
         <h1 class="text-7xl font-bold mb-6 tracking-tight">
-          <span class="text-gray-900">Fund Education</span>
+          <span
+            class="text-gray-900 inline-block animate-fade-in-up"
+            style="animation-delay: 0.1s"
+            >Fund Education</span
+          >
           <br />
-          <span class="text-emerald-500">On-Chain</span>
+          <span
+            class="text-emerald-500 inline-block animate-fade-in-up bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-emerald-600 animate-gradient"
+            style="animation-delay: 0.2s"
+            >On-Chain</span
+          >
         </h1>
 
+        <!-- Animated Description -->
         <p
-          class="text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed"
+          class="text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up"
+          style="animation-delay: 0.3s"
         >
           Decentralized student loans backed by HTS tokens. Transparent, secure,
           and instant.
         </p>
 
-        <div class="flex justify-center gap-4">
+        <!-- Animated Buttons -->
+        <div
+          class="flex justify-center gap-4 animate-fade-in-up"
+          style="animation-delay: 0.4s"
+        >
           <button
             @click="showAuthModal('student')"
-            class="group px-8 py-4 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition font-medium text-lg flex items-center gap-2"
+            class="group px-8 py-4 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 font-medium text-lg flex items-center gap-2 relative overflow-hidden"
           >
-            Apply for Loan
+            <span class="relative z-10">Apply for Loan</span>
             <svg
-              class="w-5 h-5 group-hover:translate-x-1 transition"
+              class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300 relative z-10"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -86,38 +107,56 @@
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
           </button>
           <button
             @click="showAuthModal('investor')"
-            class="px-8 py-4 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition font-medium text-lg"
+            class="px-8 py-4 bg-gray-900 text-white rounded-full hover:bg-gray-800 hover:scale-105 hover:shadow-2xl hover:shadow-gray-900/30 transition-all duration-300 font-medium text-lg"
           >
             Start Investing
           </button>
         </div>
       </div>
 
-      <!-- Stats Grid -->
+      <!-- Stats Grid with staggered animation and hover effects -->
       <div class="grid grid-cols-3 gap-8 max-w-4xl mx-auto mb-32">
         <div
-          class="text-center p-8 rounded-2xl border border-gray-100 hover:border-emerald-200 transition"
+          class="text-center p-8 rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-fade-in-up group"
+          style="animation-delay: 0.5s"
         >
-          <div class="text-5xl font-bold text-gray-900 mb-2">$10K+</div>
+          <div
+            class="text-5xl font-bold text-gray-900 mb-2 group-hover:scale-110 transition-transform duration-300"
+          >
+            $10K+
+          </div>
           <div class="text-gray-500 text-sm uppercase tracking-wide">
             Total Funded
           </div>
         </div>
         <div
-          class="text-center p-8 rounded-2xl border border-gray-100 hover:border-emerald-200 transition"
+          class="text-center p-8 rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-fade-in-up group"
+          style="animation-delay: 0.6s"
         >
-          <div class="text-5xl font-bold text-gray-900 mb-2">50+</div>
+          <div
+            class="text-5xl font-bold text-gray-900 mb-2 group-hover:scale-110 transition-transform duration-300"
+          >
+            50+
+          </div>
           <div class="text-gray-500 text-sm uppercase tracking-wide">
             Students
           </div>
         </div>
         <div
-          class="text-center p-8 rounded-2xl border border-gray-100 hover:border-emerald-200 transition"
+          class="text-center p-8 rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-fade-in-up group"
+          style="animation-delay: 0.7s"
         >
-          <div class="text-5xl font-bold text-emerald-500 mb-2">5%</div>
+          <div
+            class="text-5xl font-bold text-emerald-500 mb-2 group-hover:scale-110 transition-transform duration-300"
+          >
+            5%
+          </div>
           <div class="text-gray-500 text-sm uppercase tracking-wide">
             Avg. Returns
           </div>
@@ -743,3 +782,68 @@ const navigateToDashboard = () => {
   }
 };
 </script>
+
+<style scoped>
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade In Down Animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Gradient Animation */
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+</style>
