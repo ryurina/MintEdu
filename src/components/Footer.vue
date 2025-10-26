@@ -83,7 +83,7 @@
             </li>
             <li>
               <a
-                href="#"
+                href="/faq"
                 class="text-gray-600 hover:text-emerald-500 transition"
                 >FAQ</a
               >

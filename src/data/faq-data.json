@@ -1,0 +1,134 @@
+{
+    "sections": [
+      {
+        "title": "General Questions",
+        "category": "General",
+        "questions": [
+          {
+            "question": "What is MintEdu?",
+            "answer": "MintEdu is a decentralized education financing platform built on the Hedera network. We connect students who need education funding with investors who want to support education while earning returns. Using blockchain technology and HTS tokens, we make the process transparent, secure, and accessible to everyone."
+          },
+          {
+            "question": "How does MintEdu work?",
+            "answer": "Students create loan requests specifying their funding needs and university details. These requests are tokenized using Hedera Token Service (HTS). Investors can browse available loans and fund them with HBAR, receiving loan tokens in return. When students repay their loans after graduation, returns are distributed proportionally to token holders."
+          },
+          {
+            "question": "Why use blockchain for student loans?",
+            "answer": "Blockchain provides transparency, security, and accessibility. All transactions are recorded on-chain, making them verifiable and tamper-proof. Smart contracts automate repayments and distributions. There are no intermediaries, reducing costs. And anyone globally can participate as either a student or investor."
+          },
+          {
+            "question": "What is Hedera and why do you use it?",
+            "answer": "Hedera is an enterprise-grade distributed ledger that provides fast, fair, and secure transactions. We chose Hedera for its high throughput (10,000+ TPS), low fees, bank-grade security (aBFT consensus), and carbon-negative footprint. It's perfect for financial applications like ours."
+          }
+        ]
+      },
+      {
+        "title": "For Students",
+        "category": "For Students",
+        "questions": [
+          {
+            "question": "Who can apply for a loan on MintEdu?",
+            "answer": "Any student enrolled in or planning to attend an accredited university can apply. We don't require credit checks or extensive financial history. You'll need to provide your university details, program information, and funding requirements."
+          },
+          {
+            "question": "How much can I borrow?",
+            "answer": "Loan amounts vary based on your needs and what investors are willing to fund. Typically, students request between $5,000 to $50,000 per academic year. You can create multiple loan requests for different semesters or purposes."
+          },
+          {
+            "question": "How long does it take to get funded?",
+            "answer": "Once your loan request is approved and published, funding can happen within days or weeks depending on investor interest. Popular programs and well-structured requests tend to get funded faster. You can track funding progress in real-time on your dashboard."
+          },
+          {
+            "question": "When do I need to start repaying?",
+            "answer": "Repayment typically begins 6-12 months after graduation or when you secure employment. The exact terms are specified in your loan agreement. We offer flexible repayment schedules based on your income situation."
+          },
+          {
+            "question": "What if I can't make a payment?",
+            "answer": "We understand that circumstances change. Contact us immediately if you're facing difficulties. We can work with you to adjust your repayment schedule or temporarily defer payments. Our goal is to support your success, not burden you with debt."
+          }
+        ]
+      },
+      {
+        "title": "For Investors",
+        "category": "For Investors",
+        "questions": [
+          {
+            "question": "Why should I invest in student loans?",
+            "answer": "Student loans offer competitive returns while supporting education. Returns typically range from 5-8% annually. You're also making a social impact by helping students access education. Plus, blockchain technology makes the entire process transparent and secure."
+          },
+          {
+            "question": "How do I start investing?",
+            "answer": "Create an investor account, complete KYC verification, and fund your wallet with HBAR. Browse available loan requests, review student profiles and terms, and invest in loans that match your criteria. You'll receive HTS tokens representing your investment share."
+          },
+          {
+            "question": "What are HTS tokens?",
+            "answer": "HTS (Hedera Token Service) tokens represent fractional ownership of student loans. Each loan has its own token. When you invest, you receive tokens proportional to your investment. These tokens entitle you to a share of repayments. Tokens are tradeable and verifiable on-chain."
+          },
+          {
+            "question": "How do I receive returns?",
+            "answer": "As students make repayments, returns are automatically distributed to token holders proportionally. Payments are processed through smart contracts and sent directly to your wallet. You can track all transactions on-chain for complete transparency."
+          },
+          {
+            "question": "Can I sell my loan tokens?",
+            "answer": "Yes! HTS tokens are transferable and can be traded on secondary markets. This provides liquidity if you need to exit your investment before the loan is fully repaid. Token trading features will be available in future updates."
+          },
+          {
+            "question": "What are the risks?",
+            "answer": "Like any investment, there are risks. Students may default on loans, though we implement measures to minimize this. Market conditions can affect returns. Diversifying across multiple loans helps manage risk. Review each loan's details carefully before investing."
+          }
+        ]
+      },
+      {
+        "title": "Technical Questions",
+        "category": "Technical",
+        "questions": [
+          {
+            "question": "Do I need a cryptocurrency wallet?",
+            "answer": "Yes, you'll need a Hedera-compatible wallet to use MintEdu. We recommend HashPack or Blade wallet. Your wallet stores your HBAR for transactions and HTS tokens representing your loans or investments. We provide step-by-step guides for wallet setup."
+          },
+          {
+            "question": "What are the fees?",
+            "answer": "MintEdu charges a 2% platform fee on funded loans. Hedera network fees are minimal (typically under $0.01 per transaction). There are no hidden fees. All costs are clearly displayed before you confirm any transaction."
+          },
+          {
+            "question": "How are transactions verified?",
+            "answer": "All transactions are recorded on the Hedera network using its aBFT consensus algorithm. This provides immediate finality and security. You can verify any transaction using Hedera's public explorer. Smart contracts automatically execute repayments and distributions."
+          },
+          {
+            "question": "What happens if the platform goes down?",
+            "answer": "Your loan tokens and ownership rights exist on the Hedera blockchain, independent of our platform. Even if MintEdu is unavailable, your tokens remain yours and are verifiable on-chain. Smart contracts continue to function autonomously."
+          },
+          {
+            "question": "Is my data stored on the blockchain?",
+            "answer": "Personal information is stored securely off-chain in encrypted databases. Only transaction data and token ownership information are recorded on-chain. We comply with data protection regulations while leveraging blockchain's benefits."
+          }
+        ]
+      },
+      {
+        "title": "Security & Trust",
+        "category": "Security",
+        "questions": [
+          {
+            "question": "How secure is MintEdu?",
+            "answer": "We use bank-grade security measures including encryption, secure authentication, and regular security audits. The Hedera network provides aBFT security, meaning transactions are final and tamper-proof. Your funds are protected by industry-leading security practices."
+          },
+          {
+            "question": "How do you verify student information?",
+            "answer": "Students must provide university enrollment verification, program details, and identity documents. We verify this information with educational institutions before approving loan requests. This ensures legitimacy and reduces fraud risk."
+          },
+          {
+            "question": "What if a student defaults?",
+            "answer": "We implement several measures to minimize defaults: thorough verification, education on financial responsibility, and flexible repayment options. If default occurs, we have collection processes in place. Investors should diversify to manage this risk."
+          },
+          {
+            "question": "Is my investment protected?",
+            "answer": "While we can't guarantee returns, we protect investments through verification processes, smart contracts, and transparent reporting. Your HTS tokens represent legal ownership rights. We recommend diversifying across multiple loans to manage risk."
+          },
+          {
+            "question": "How do you comply with regulations?",
+            "answer": "We work with legal experts to ensure compliance with financial regulations in operating jurisdictions. This includes KYC/AML procedures, securities regulations, and consumer protection laws. We're committed to operating transparently and legally."
+          }
+        ]
+      }
+    ]
+  }
