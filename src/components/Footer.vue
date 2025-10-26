@@ -6,15 +6,12 @@
         <!-- Brand -->
         <div>
           <div class="flex items-center gap-3 mb-4">
-            <div
-              class=" rounded-lg flex items-center justify-center"
-            >
+            <div class="rounded-lg flex items-center justify-center">
               <img
                 src="/logo_mintedu.png"
                 alt="icon"
                 class="w-10 h-10 text-white"
-              >
-
+              />
             </div>
             <span class="text-xl font-bold text-gray-900">MintEdu</span>
           </div>
@@ -72,7 +69,7 @@
             </li>
             <li>
               <a
-                href="#"
+                href="/#work"
                 class="text-gray-600 hover:text-emerald-500 transition"
                 >How It Works</a
               >

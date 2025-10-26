@@ -6,22 +6,12 @@
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-3">
             <router-link to="/" class="flex items-center gap-3 group">
-              <div
-                class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition"
-              >
-                <svg
-                  class="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
+              <div class="rounded-lg flex items-center justify-center">
+                <img
+                  src="/logo_mintedu.png"
+                  alt="icon"
+                  class="w-10 h-10 text-white"
+                />
               </div>
               <span class="text-2xl font-bold text-gray-900">MintEdu</span>
             </router-link>
