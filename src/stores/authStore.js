@@ -7,28 +7,45 @@ export const useAuthStore = defineStore('auth', () => {
   const profile = ref(null)
   const loading = ref(false)
 
-  const signUp = async (email, password, role) => {
+  const signUp = async (email, password, role, additionalData) => {
     loading.value = true
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: { role }
+          data: { 
+            role,
+            full_name: additionalData.fullName,
+            phone: additionalData.phone
+          }
         }
       })
 
       if (error) throw error
 
-      // Create profile
+      // Create profile with additional fields
       await supabase.from('profiles').insert({
         id: data.user.id,
         email,
-        role
+        role,
+        full_name: additionalData.fullName,
+        phone: additionalData.phone,
+        username: additionalData.username,
+        country: additionalData.country,
+        date_of_birth: additionalData.dateOfBirth
       })
 
       user.value = data.user
-      profile.value = { role, email }
+      profile.value = { 
+        role, 
+        email,
+        full_name: additionalData.fullName,
+        phone: additionalData.phone,
+        username: additionalData.username,
+        country: additionalData.country,
+        date_of_birth: additionalData.dateOfBirth
+      }
       return { success: true }
     } catch (error) {
       return { success: false, error: error.message }
