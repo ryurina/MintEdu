@@ -10,7 +10,8 @@ const routes = [
   { path: '/terms', name: 'terms', component: () => import('./views/TermsView.vue')},
   { path: '/blog', name:'blog', component: ()=> import('./views/Blog.vue')},
   { path: '/blog/:slug', name:'blogPost', component: ()=> import('./views/BlogPostView.vue')},
-  { path: '/faq', name:'FAQ', component: ()=> import('./views/FAQ.vue')}
+  { path: '/faq', name:'FAQ', component: ()=> import('./views/FAQ.vue')},
+  { path: '/about', name:'about', component: ()=> import('./views/AboutView.vue')}
 ]
 
 const router = createRouter({

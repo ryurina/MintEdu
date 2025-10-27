@@ -27,6 +27,12 @@
             >
               Blog
             </router-link>
+            <router-link
+              to="/about"
+              class="text-gray-600 hover:text-emerald-500 transition font-medium"
+            >
+              About
+            </router-link>
             <a
               href="/#contact"
               class="text-gray-600 hover:text-emerald-500 transition font-medium"

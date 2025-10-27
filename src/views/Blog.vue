@@ -16,12 +16,6 @@
           </a>
           <div class="flex items-center gap-6">
             <router-link
-              to="/"
-              class="text-gray-600 hover:text-emerald-500 transition font-medium"
-            >
-              Home
-            </router-link>
-            <router-link
               to="/browse"
               class="text-gray-600 hover:text-emerald-500 transition font-medium"
             >
@@ -29,6 +23,12 @@
             </router-link>
             <router-link to="/blog" class="text-emerald-500 font-medium">
               Blog
+            </router-link>
+            <router-link
+              to="/about"
+              class="text-gray-600 hover:text-emerald-500 transition font-medium"
+            >
+              About
             </router-link>
             <a
               href="/#contact"
