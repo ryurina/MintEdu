@@ -379,6 +379,9 @@
         </div>
       </div>
     </div>
+
+    <!-- Toast Container -->
+    <ToastContainer />
   </div>
 </template>
 
@@ -387,10 +390,13 @@ import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/authStore";
 import { useLoanStore } from "../stores/loanStore";
+import { useToast } from "../composables/useToast";
+import ToastContainer from "../components/ToastContainer.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
 const loanStore = useLoanStore();
+const toast = useToast();
 
 const loanForm = ref({
   amount: "",
@@ -475,7 +481,10 @@ const submitLoan = async () => {
     !loanForm.value.duration_months ||
     !loanForm.value.university
   ) {
-    alert("Please fill all fields");
+    toast.warning(
+      "Incomplete Form",
+      "Please fill in all required fields before submitting."
+    );
     return;
   }
 
@@ -495,9 +504,15 @@ const submitLoan = async () => {
       university: "",
       interest_rate: 5,
     };
-    alert("🎉 Loan application submitted! HTS token created successfully.");
+    toast.success(
+      "Loan Created Successfully!",
+      "Your loan application has been submitted and HTS token was created successfully."
+    );
   } else {
-    alert(result.error);
+    toast.error(
+      "Submission Failed",
+      result.error || "Unable to create loan. Please try again."
+    );
   }
 };
 

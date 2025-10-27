@@ -13,6 +13,7 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
 ## 🌟 Features
 
 - **For Students**
+
   - Apply for affordable education loans
   - Transparent fee structure (0% intermediary fees)
   - Flexible repayment terms
@@ -20,6 +21,7 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
   - Direct investor connection
 
 - **For Investors**
+
   - Browse verified student loan opportunities
   - Earn sustainable returns (avg. 15%)
   - Support education impact
@@ -109,6 +111,7 @@ MintEdu/
 ## 🔧 Technology Stack
 
 ### Frontend
+
 - **Vue 3** - Progressive JavaScript framework
 - **Vite** - Next-generation build tool
 - **Tailwind CSS** - Utility-first CSS framework
@@ -117,11 +120,13 @@ MintEdu/
 - **Axios** - HTTP client
 
 ### Backend & Database
+
 - **Supabase** - PostgreSQL database
 - **Supabase Auth** - Authentication service
 - **Supabase Edge Functions** - Serverless functions
 
 ### Blockchain
+
 - **Hedera Hashgraph** - Consensus service
 - **Hedera Token Service (HTS)** - Token creation & management
 - **HashConnect** - Wallet connection protocol
@@ -130,6 +135,7 @@ MintEdu/
 ## 🔐 Security & Compliance
 
 ### Security Features
+
 - Multi-factor authentication (2FA)
 - Secure password hashing with bcrypt
 - Role-based access control (RBAC)
@@ -138,6 +144,7 @@ MintEdu/
 - Environment variable protection
 
 ### Compliance
+
 - **KYC/AML** - Know Your Customer & Anti-Money Laundering
 - **GDPR** - General Data Protection Regulation compliant
 - Identity verification integration
@@ -145,6 +152,7 @@ MintEdu/
 - Data anonymization for analytics
 
 ### Data Protection
+
 - Supabase Row Level Security (RLS)
 - Encrypted sensitive data
 - Regular backups with encryption
@@ -228,12 +236,14 @@ Example: `https://hashscan.io/testnet/token/0.0.12345678`
 ## 🎯 Key Pages
 
 ### Public Pages
+
 - **Home** (`/`) - Landing page with hero, features, CTA
 - **Privacy Policy** (`/privacy`) - Privacy & data protection
 - **Terms of Service** (`/terms`) - Legal terms
 - **Contact** (`/contact`) - Contact form
 
 ### Authenticated Pages
+
 - **Student Dashboard** (`/student`) - View loans, make payments
 - **Investor Dashboard** (`/investor`) - Browse loans, manage investments
 - **Loan Details** (`/loans/:id`) - View loan information
@@ -243,6 +253,7 @@ Example: `https://hashscan.io/testnet/token/0.0.12345678`
 ## 💰 How It Works
 
 ### Student Flow
+
 1. Sign up with email and password (Supabase Auth)
 2. Verify identity with 2FA
 3. Create loan application
@@ -253,6 +264,7 @@ Example: `https://hashscan.io/testnet/token/0.0.12345678`
 8. Make repayments over time
 
 ### Investor Flow
+
 1. Sign up and pass KYC (Supabase Auth)
 2. Connect Hedera wallet (HashConnect)
 3. Browse available loans
@@ -265,16 +277,19 @@ Example: `https://hashscan.io/testnet/token/0.0.12345678`
 ## 🔗 Hedera Integration
 
 ### Token Management
+
 - Create custom tokens using Hedera Token Service (HTS)
 - Token transfers via wallet connections
 - Real-time balance updates
 
 ### Wallet Connection
+
 - **HashPack** - Browser extension wallet
 - **Blade** - Alternative Hedera wallet
 - HashConnect protocol for secure connections
 
 ### Transaction Processing
+
 - Sign transactions with connected wallet
 - Real-time transaction status updates
 - View transactions on [HashScan](https://hashscan.io/testnet)
@@ -298,11 +313,13 @@ npm run test:coverage
 ## 🚢 Deployment
 
 ### Development
+
 ```bash
 npm run dev
 ```
 
 ### Production Build
+
 ```bash
 npm run build
 npm run preview
@@ -311,6 +328,7 @@ npm run preview
 See [DEPLOYMENT.md](./docs/DEPLOYMENT.md) for complete production deployment guide.
 
 Quick start with Vercel/Netlify:
+
 ```bash
 npm run build
 # Deploy the dist/ folder
