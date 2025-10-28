@@ -97,7 +97,7 @@
           <ul class="space-y-2 text-sm">
             <li>
               <a
-                href="#"
+                href="/about"
                 class="text-gray-600 hover:text-emerald-500 transition"
                 >About Us</a
               >
@@ -112,7 +112,7 @@
             </li>
             <li>
               <a
-                href="#"
+                href="/blog"
                 class="text-gray-600 hover:text-emerald-500 transition"
                 >Blog</a
               >
