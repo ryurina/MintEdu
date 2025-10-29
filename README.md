@@ -1,18 +1,17 @@
 # MintEdu
+
 ## Onchain Finance & Real-World Assets (RWA)
 
 **Decentralized Education Financing Powered by Hedera**
 
 MintEdu is a Web3 platform that revolutionizes education financing by connecting students directly with community investors through blockchain technology. Say goodbye to traditional lending gatekeepers and hello to transparent, accessible education funding.
 
-![License](https://img.shields.io/badge/license-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
 **Repository**: [github.com/ryurina/MintEdu](https://github.com/ryurina/MintEdu)
 
 ---
-
 
 ## 🔷 Hedera Service Utilization
 
@@ -25,16 +24,19 @@ MintEdu leverages **Hedera Token Service (HTS)** as its core blockchain infrastr
 We chose Hedera for its unique combination of features that directly address the challenges of education financing:
 
 **1. Predictable Low-Cost Economics ($0.0001 per transaction)**
+
 - **Token Creation**: Each student loan application creates a unique HTS token. Traditional blockchain networks charge $5-50 per token creation, making micro-loans economically unfeasible. Hedera's $0.0001 token creation fee enables us to tokenize even small $500-1000 student loans profitably.
 - **Investment Transactions**: With potentially hundreds of small investors funding each loan ($50-500 investments), transaction fees must be negligible. At $0.0001 per transfer, we can process 10,000 transactions for just $1, ensuring the platform remains accessible to both small investors and students.
 - **Financial Sustainability**: Our platform charges 0% intermediary fees to students. This is only possible because Hedera's predictable costs allow us to build a sustainable business model on volume rather than high per-transaction margins.
 
 **2. High Throughput & Finality**
+
 - Process loan fundings in seconds, not minutes or hours
 - 3-5 second transaction finality ensures instant confirmation for investors
 - Supports high transaction volume during loan funding campaigns
 
 **3. Regulatory Compliance**
+
 - Hedera's governed structure (Google, IBM, Boeing council members) provides regulatory confidence
 - Built-in compliance features support our KYC/AML requirements
 - Transparent audit trail for all transactions
@@ -44,11 +46,13 @@ We chose Hedera for its unique combination of features that directly address the
 MintEdu executes the following Hedera transaction types:
 
 1. **`TokenCreateTransaction`** - Creates a unique fungible token for each student loan application
+
    - Token represents fractional ownership of the loan
    - Minted supply equals loan amount requested
    - Used in: Supabase Edge Function `create-loan-token`
 
 2. **`TransferTransaction`** - Processes all investment and repayment flows
+
    - HBAR from investor → Treasury account (investment)
    - Loan tokens from Treasury → Investor wallet (allocation)
    - HBAR from student → Investors (loan repayments)
@@ -62,6 +66,7 @@ MintEdu executes the following Hedera transaction types:
 ### Economic Impact
 
 By choosing Hedera's $0.0001 fee structure over alternatives (Ethereum: ~$5-50, Polygon: ~$0.01-0.50), MintEdu achieves:
+
 - **99.99% cost reduction** vs. Ethereum
 - **99% cost reduction** vs. other L2 solutions
 - **Zero-fee experience** for end users (platform absorbs all blockchain costs)
@@ -162,38 +167,41 @@ This economic model is essential for democratizing access to education financing
 
 DATA FLOW:
 ─────────
-1. Student applies → Frontend → Supabase (store loan) → Edge Function 
+1. Student applies → Frontend → Supabase (store loan) → Edge Function
    → HTS TokenCreate → Update DB with Token ID
 
-2. Investor funds loan → Frontend (wallet signature) → Edge Function 
+2. Investor funds loan → Frontend (wallet signature) → Edge Function
    → HTS Transfer (HBAR + Tokens) → Update DB investment record
 
 3. Query loan data → Frontend → Supabase PostgreSQL → Display UI
 
-4. Wallet connection → Frontend → HashConnect → HashPack/Blade 
+4. Wallet connection → Frontend → HashConnect → HashPack/Blade
    → Hedera Account Info
 ```
 
 ### Component Interaction Flow
 
 **Loan Creation Flow:**
+
 ```
-Student → Vue Frontend → Supabase Auth (verify) → PostgreSQL (create loan record) 
-→ Edge Function create-loan-token → HTS TokenCreateTransaction 
+Student → Vue Frontend → Supabase Auth (verify) → PostgreSQL (create loan record)
+→ Edge Function create-loan-token → HTS TokenCreateTransaction
 → PostgreSQL (update loan with token_id) → Frontend (display confirmation)
 ```
 
 **Investment Flow:**
+
 ```
-Investor → Vue Frontend → Wallet Connection (HashConnect) 
-→ Frontend (select loan, amount) → Edge Function process-investment 
-→ HTS TransferTransaction (HBAR → Treasury, Tokens → Investor) 
+Investor → Vue Frontend → Wallet Connection (HashConnect)
+→ Frontend (select loan, amount) → Edge Function process-investment
+→ HTS TransferTransaction (HBAR → Treasury, Tokens → Investor)
 → PostgreSQL (record investment) → Frontend (show success)
 ```
 
 **Data Retrieval Flow:**
+
 ```
-User → Vue Frontend → Supabase PostgreSQL (query loans/investments) 
+User → Vue Frontend → Supabase PostgreSQL (query loans/investments)
 → Hedera Mirror Node (optional: verify token balances) → Frontend (render data)
 ```
 
@@ -224,10 +232,12 @@ cp .env.example .env
 # Configure your .env.local (see Environment Variables section below)
 # IMPORTANT: Never commit .env or any file containing private keys!
 ```
+
 **Supabase Database setup (SQL Editor):**
 Copy the content of the file "supabase/sql_schema.sql" to SQL Editor on Supabase and run it.
 
 **Edge Function Secrets (Supabase Dashboard):**
+
 ```bash
 # Set these in Supabase > Edge Functions > Secrets
 supabase secrets set HEDERA_OPERATOR_ID=0.0.xxxxx
@@ -251,7 +261,6 @@ npm run dev
 # Backend services (Supabase Edge Functions) run on Supabase's infrastructure
 # and are called via API endpoints from the frontend
 ```
-
 
 ### Build for Production
 
@@ -308,6 +317,7 @@ npm run preview
 **⚠️ Important:** Each student loan creates a **unique Token ID** when the loan application is approved. Token IDs are dynamically generated and stored in the Supabase database.
 
 **Example Loan Tokens:**
+
 ```
 Loan #1: 0.0.4567890 (Student: Alice - Computer Science)
 Loan #2: 0.0.4567891 (Student: Bob - Engineering)
@@ -315,6 +325,7 @@ Loan #3: 0.0.4567892 (Student: Carol - Medicine)
 ```
 
 **Platform Accounts:**
+
 ```
 Treasury Account: 0.0.1234567
 (This account is used by Edge Functions to mint and distribute tokens)
@@ -322,6 +333,7 @@ Treasury Account: 0.0.1234567
 
 **Viewing Tokens on HashScan:**
 You can view any created token on the Hedera testnet explorer:
+
 ```
 https://hashscan.io/testnet/token/YOUR_TOKEN_ID
 ```
@@ -329,6 +341,7 @@ https://hashscan.io/testnet/token/YOUR_TOKEN_ID
 Example: `https://hashscan.io/testnet/token/0.0.4567890`
 
 **Retrieving Token IDs:**
+
 - Frontend: Query Supabase `loans` table for `token_id` field
 - Edge Function: Returns token ID after successful TokenCreateTransaction
 - HashScan: Search by transaction ID or account ID
