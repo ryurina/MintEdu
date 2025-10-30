@@ -9,7 +9,10 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
+**Pitch Deck**: [mint-edu.vercel.app/pitch_deck_mintedu.pdf](https://mint-edu.vercel.app/pitch_deck_mintedu.pdf)
+**Certificatino**: [Hedera Certification](https://certs.hashgraphdev.com/a9ecf0ec-93f3-4de4-a4a2-ac8999f98f55.pdf)
 **Repository**: [github.com/ryurina/MintEdu](https://github.com/ryurina/MintEdu)
+**Demo MVP**: [mint-edu.vercel.app/](https://mint-edu.vercel.app/)
 
 ---
 
