@@ -17,6 +17,8 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
 
 **Demo MVP**: [mint-edu.vercel.app/](https://mint-edu.vercel.app/)
 
+
+**Demo Video**: [youtube.com/watch?v=3gWLTVRbSN0](https://youtube.com/watch?v=3gWLTVRbSN0)
 ---
 
 ## 🔷 Hedera Service Utilization
