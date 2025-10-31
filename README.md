@@ -4,7 +4,7 @@
 
 **Decentralized Education Financing Powered by Hedera**
 
-MintEdu is a Web3 platform that revolutionizes education financing by connecting students directly with community investors through blockchain technology. Say goodbye to traditional lending gatekeepers and hello to transparent, accessible education funding.
+MintEdu is a Web3 platform that revolutionizes education financing by connecting students directly with community investors through hashgraph technology. Say goodbye to traditional lending gatekeepers and hello to transparent, accessible education funding.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
@@ -19,13 +19,14 @@ MintEdu is a Web3 platform that revolutionizes education financing by connecting
 
 
 **Demo Video**: [youtube.com/watch?v=3gWLTVRbSN0](https://youtube.com/watch?v=3gWLTVRbSN0)
+
 ---
 
 ## 🔷 Hedera Service Utilization
 
 ### Services Used
 
-MintEdu leverages **Hedera Token Service (HTS)** as its core blockchain infrastructure for tokenizing education loans and processing investments.
+MintEdu leverages **Hedera Token Service (HTS)** as its core hashgraph infrastructure for tokenizing education loans and processing investments.
 
 ### Why Hedera?
 
@@ -33,7 +34,7 @@ We chose Hedera for its unique combination of features that directly address the
 
 **1. Predictable Low-Cost Economics ($0.0001 per transaction)**
 
-- **Token Creation**: Each student loan application creates a unique HTS token. Traditional blockchain networks charge $5-50 per token creation, making micro-loans economically unfeasible. Hedera's $0.0001 token creation fee enables us to tokenize even small $500-1000 student loans profitably.
+- **Token Creation**: Each student loan application creates a unique HTS token. Traditional hashgraph networks charge $5-50 per token creation, making micro-loans economically unfeasible. Hedera's $0.0001 token creation fee enables us to tokenize even small $500-1000 student loans profitably.
 - **Investment Transactions**: With potentially hundreds of small investors funding each loan ($50-500 investments), transaction fees must be negligible. At $0.0001 per transfer, we can process 10,000 transactions for just $1, ensuring the platform remains accessible to both small investors and students.
 - **Financial Sustainability**: Our platform charges 0% intermediary fees to students. This is only possible because Hedera's predictable costs allow us to build a sustainable business model on volume rather than high per-transaction margins.
 
@@ -77,7 +78,7 @@ By choosing Hedera's $0.0001 fee structure over alternatives (Ethereum: ~$5-50, 
 
 - **99.99% cost reduction** vs. Ethereum
 - **99% cost reduction** vs. other L2 solutions
-- **Zero-fee experience** for end users (platform absorbs all blockchain costs)
+- **Zero-fee experience** for end users (platform absorbs all hashgraph costs)
 - **Sustainable unit economics** even for micro-loans under $500
 
 This economic model is essential for democratizing access to education financing globally, especially in developing markets where traditional lending infrastructure is absent.
@@ -143,7 +144,7 @@ This economic model is essential for democratizing access to education financing
         │ (1) Auth, CRUD               │ (2) Wallet Connect
         │                              │
 ┌───────▼──────────────────┐  ┌────────▼────────────────────────────┐
-│   BACKEND LAYER          │  │     BLOCKCHAIN LAYER                │
+│   BACKEND LAYER          │  │     hashgraph LAYER                │
 │  (Supabase Services)     │  │    (Hedera Network)                 │
 │                          │  │                                     │
 │ ┌────────────────────┐   │  │  ┌─────────────────────┐            │
@@ -303,7 +304,7 @@ npm run preview
   - `create-loan-token`: Executes HTS TokenCreateTransaction
   - `process-investment`: Executes HTS TransferTransaction
 
-### Blockchain
+### hashgraph
 
 - **Hedera Hashgraph** - DLT with aBFT consensus
 - **Hedera Token Service (HTS)** - Native token creation & management
